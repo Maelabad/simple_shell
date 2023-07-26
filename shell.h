@@ -67,23 +67,23 @@ int execute(Infos *data);
 int handle_path(Infos *data);
 
 
-/*============================_exit.c DONE==============================*/
+/*============================_exit.c DONE=================*/
 
 int built_in_exit(Infos *data);
 int display_env(void);
 
-/*============================_cd.c DONE====================================*/
+/*============================_cd.c DONE======================*/
 int _cd(Infos *data);
 
 int change_dir(Infos *data);
 
 
-/*============================infos.c DONE=====================================*/
+/*============================infos.c DONE=======================*/
 void init_path(Infos *data);
 void initialize_data(Infos *data, int argc, char *argv[]);
 
 
-/*============================print_shell.c DONE=============================*/
+/*============================print_shell.c DONE====================*/
 int _putchar(char c);
 
 void print_prompt(char *msg);
@@ -91,11 +91,11 @@ void print_prompt(char *msg);
 int _printf(char *string);
 
 
-/*============================_getline.c DONE=================================*/
+/*============================_getline.c DONE====================*/
 ssize_t _getline(char **lineptr, FILE *Stream);
 
 
-/*============================handle_str1.c DONE ============================*/
+/*============================handle_str1.c DONE ====================*/
 char *_strtok(char *line, char *delim);
 
 char *_strcpy(char *dest, const char *src);
@@ -105,7 +105,13 @@ char *_strcat(char *dest, const char *src);
 int _atoi(const char *str);
 
 
-/*============================handle_str2.c DONE==============================*/
+/*============================handle_str2.c DONE======
+Forks
+0 forks
+Releases
+No releases published
+Create a new release
+========*/
 int _strcspn(char *s, char *reject);
 
 int _strcmp(char *s1, char *s2);
@@ -119,7 +125,7 @@ void free_Infos(Infos *data);
 void free_path(Infos *data);
 
 
-int separateInstructions(Infos *data, char* input_line);
+int separateInstructions(Infos *data, char *input_line);
 
 
 #endif
