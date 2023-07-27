@@ -68,7 +68,7 @@ void non_interactive(Infos *data, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	while ((read = _getline(&line, file)) != -1)
+	while ((read = getline(&line, file)) != -1)
 	{
 		if (read == -1)
 			break;
@@ -105,7 +105,7 @@ char *read_input()
 	ssize_t ret;
 	char *line = NULL;
 
-	ret = _getline(&line, stdin);
+	ret = getline(&line, stdin);
 	if (ret == -1)
 		return (NULL);
 	return (line);
