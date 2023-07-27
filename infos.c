@@ -55,30 +55,31 @@ void initialize_data(Infos *data, int argc, char *argv[])
 {
 	int env_size = 0, i;
 
+	data->line_buffer_size = malloc(sizeof(size_t));
+	if (!data->line_buffer_size)
+	{
+		perror("Failed to allocate memory for line_buffer_size");
+		exit(EXIT_FAILURE);
+	}
+	*data->line_buffer_size = 0;
+
 	init_path(data);
 	data->program_name = strdup(argv[0]);
 	data->input_line = malloc(sizeof(char) * 256);
 	data->curdir = NULL;
 	data->lastdir = NULL;
 	data->nb_arg = 0;
-
-
 	while (environ[env_size] != NULL)
-	env_size++;
-
+		env_size++;
 	data->env = malloc(sizeof(char *) * (env_size + 1));
 	if (data->env == NULL)
 	{
 		perror("Error allocating memory");
 		exit(EXIT_FAILURE);
 	}
-
 	for (i = 0; i < env_size; i++)
-	{
 		data->env[i] = strdup(environ[i]);
-	}
 	data->env[env_size] = NULL;
-
 	if (argc == 1)
 		data->file_descriptor = STDIN_FILENO;
 	else
