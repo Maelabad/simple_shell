@@ -45,6 +45,7 @@ extern char **environ;
 typedef struct infos
 {
 	char **PATH;
+	size_t *line_buffer_size;
 	char *program_name;
 	char *command_name;
 	int file_descriptor;

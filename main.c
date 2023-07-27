@@ -68,25 +68,32 @@ void non_interactive(Infos *data, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	while ((read = getline(&line, file)) != -1)
+	while ((read = getline(&line, data->line_buffer_size, file)) != -1)
 	{
 		if (read == -1)
 			break;
 		line[strcspn(line, "\n")] = '\0';
 		if (strlen(line) == 0)
-		{
 			continue;
+		data->input_line = malloc((strlen(line) + 1) * sizeof(char));
+		if (!data->input_line)
+		{
+			perror("Failed to allocate memory for input_line");
+			fclose(file);
+			free(line);
+			exit(EXIT_FAILURE);
 		}
-
-		strcpy(data->input_line, line);
+		_strcpy(data->input_line, line);
 		status = execute(data);
 		if (status == EXIT_FAILURE)
 		{
 			printf("Error executing command\n");
 			fclose(file);
 			free(line);
+			free(data->input_line);
 			exit(EXIT_FAILURE);
 		}
+		free(data->input_line);
 		free(line);
 		line = NULL;
 	}
@@ -96,21 +103,28 @@ void non_interactive(Infos *data, char *argv[])
 }
 
 
+
 /**
  * read_input - ...
  * Return: Always a char
 */
 char *read_input()
 {
-	ssize_t ret;
+	ssize_t read;
 	char *line = NULL;
+	size_t n = 0;
 
-	ret = getline(&line, stdin);
-	if (ret == -1)
+	read = getline(&line, &n, stdin);
+	if (read == -1)
+	{
+		if (feof(stdin))
+			return NULL;
+		perror("getline failed");
 		return (NULL);
+	}
+
 	return (line);
 }
-
 
 /**
  * run_program - Run the program
